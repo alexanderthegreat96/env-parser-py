@@ -1,6 +1,7 @@
-## Class: `EnvParser`
-
-The `EnvParser` class provides functionality for parsing environment configuration from a file and managing the configuration variables. It reads variables from a specified file (defaulting to `.env`), handles type conversions, and allows access to environment variables with various types.
+## EnvParser
+EnvParser is a `dependency free` utility written in Python that aims to simplify how we work with `env files`.
+In other words, it will parse `env variables` and convert them to a specific type specified by the developer
+or perform auto-conversion. It also escapes values, removes whitespaces and some other stuff. It's easy to use.
 
 ### Attributes
 
