@@ -380,7 +380,7 @@ class EnvParser:
 
         return env
 
-    def get(self, which: str, kind: str = "string", default: any = None) -> any:
+    def get(self, which: str, kind: str = None, default: any = None) -> any:
         """
         Retrieves a value from the environment configuration and converts it to the desired type.
 
@@ -399,7 +399,8 @@ class EnvParser:
             variable you want to retrieve.
 
         kind : str, optional
-            A string representing the type to convert the value to. Defaults to `"string"`.
+            A string representing the type to convert the value to. Defaults to `None`.
+            If not provided, it will try to automatically convert to the correct type
             Accepted types include:
             - 'str', 'string'
             - 'bool', 'boolean'
