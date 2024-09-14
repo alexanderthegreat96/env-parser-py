@@ -2,7 +2,53 @@
 EnvParser is a `dependency free` utility written in Python that aims to simplify how we work with `env files`.
 In other words, it will parse `env variables` and convert them to a specific type specified by the developer
 or perform auto-conversion. It also escapes values, removes whitespaces and some other stuff. It's easy to use.
+## Usage
+ - Import the class / module
+ - Initialize it with your `env_file_name`
+ - Start grabbing your data
 
+### Example
+```env
+# Sample ENV File 
+# A string variable for database URL
+DATABASE_URL="postgres://user:password@localhost/dbname"
+
+# An integer variable for maximum connections
+MAX_CONNECTIONS=10
+
+# A boolean variable for debug mode
+DEBUG_MODE=true
+
+# A list variable for allowed hosts
+ALLOWED_HOSTS="[localhost, example.com]"
+
+# A dictionary variable for configuration settings
+CONFIG={"setting1": "value1", "setting2": 2, "setting3": [1, 2, 3]}
+
+```
+```python
+from EnvParser import EnvParser
+
+env = EnvParser(".env")
+
+# using it with individual variables
+db_url = env_parser.get("DATABASE_URL", kind="string")
+max_connections = env_parser.get("MAX_CONNECTIONS", kind="int", default=10)
+debug_mode = env_parser.get("DEBUG_MODE", kind="bool")
+allowed_hosts = env_parser.get("ALLOWED_HOSTS", kind="list")
+config = env_parser.get("CONFIG", kind="dict")
+
+print(f"Database URL: {db_url}")
+print(f"Max Connections: {max_connections}")
+print(f"Debug Mode: {debug_mode}")
+print(f"Allowed Hosts: {allowed_hosts}")
+print(f"Config: {config}")
+
+# Retrieve all variables
+all_vars = env_parser.get_vars()
+print("All Variables:", all_vars)
+```
+## Class Documentation
 ### Attributes
 
 - **`__env_file` (str)**: 
@@ -89,3 +135,32 @@ Retrieves a value from the environment configuration and converts it to the desi
 - Uses `convert_to_specific_type` for type conversion if the `kind` is specified and is in `self.__accepted_types`.
 - Returns `None` if `self.__env_error` is `True`, indicating a problem with the environment configuration.
 
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### MIT License
+
+The MIT License (MIT)
+----------------------
+
+Copyright (c) [2024] [alexanderthegreat96]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
