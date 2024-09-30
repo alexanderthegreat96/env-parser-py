@@ -97,9 +97,8 @@ def convert_input_to_type(input_string: any = None) -> any:
                 return float(input_string)
 
             if is_boolean(input_string):
-                return bool(input_string)
+                return True if input_string.lower() == "true" else False
 
-            # works with the mysql datatime format in this scenario
             if is_datetime(input_string):
                 return datetime.strptime(input_string, "%Y-%m-%d %H:%M:%S")
 
@@ -399,8 +398,8 @@ class EnvParser:
             variable you want to retrieve.
 
         kind : str, optional
-            A string representing the type to convert the value to. Defaults to `None`.
-            If not provided, it will try to automatically convert to the correct type
+            A string representing the type to convert the value to. Defaults to None.
+            If not provided, it will figure out the type automatically
             Accepted types include:
             - 'str', 'string'
             - 'bool', 'boolean'
@@ -452,14 +451,12 @@ class EnvParser:
             else:
                 found_value = default
 
-            returned_value: any = (
-                convert_input_to_type(found_value) if found_value else None
-            )
-
             if kind and kind in self.__accepted_types:
                 returned_value = (
                     convert_to_specific_type(found_value, kind) if found_value else None
                 )
-
+            else:
+                returned_value: any = (
+                    convert_input_to_type(found_value) if found_value else None
+                )
         return returned_value
-
