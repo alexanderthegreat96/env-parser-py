@@ -63,9 +63,6 @@ def is_list(value: any) -> bool:
         return False
 
 
-str
-
-
 def is_dict(value: any) -> bool:
     # Try converting a string representation of a dict, e.g., '{"key": "value"}'
     try:
